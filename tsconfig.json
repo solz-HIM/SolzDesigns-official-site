@@ -30,5 +30,28 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    "components/expandable-card-demo-*.tsx",
+    "components/signup-form-demo.tsx",
+    "components/ui/animated-*.tsx",
+    "components/ui/apple-cards-carousel.tsx",
+    "components/ui/container-scroll-animation.tsx",
+    "components/ui/dotted-glow-background.tsx",
+    "components/ui/flip-words.tsx",
+    "components/ui/google-gemini-effect.tsx",
+    "components/ui/hero-parallax.tsx",
+    "components/ui/images-*.tsx",
+    "components/ui/lamp.tsx",
+    "components/ui/layout-grid.tsx",
+    "components/ui/macbook-scroll.tsx",
+    "components/ui/multi-step-loader.tsx",
+    "components/ui/parallax-hero-images.tsx",
+    "components/ui/svg-mask-effect.tsx",
+    "components/ui/text-hover-effect.tsx",
+    "components/ui/webcam-pixel-grid.tsx",
+    "components/ui/3d-globe.tsx",
+    "sections/portfolio.tsx",
+    "sections/testimonials.tsx"
+  ]
 }
