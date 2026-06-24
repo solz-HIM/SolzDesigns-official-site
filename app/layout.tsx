@@ -40,6 +40,9 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true, "max-image-preview": "large" },
   },
   alternates: { canonical: "https://solzdesigns.co.zw" },
+  verification: {
+    google: "yJNaF4bQ9cogswtp8Gz5Xy2NPG5nRFW8C17dHCSRmYw",
+  },
 };
 
 export const viewport: Viewport = {
