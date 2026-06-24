@@ -4,13 +4,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const base = "https://solzdesigns.co.zw";
   const routes = [
     "",
-    "/about",
-    "/work",
-    "/services",
     "/services/e-commerce",
     "/services/portfolio",
     "/services/website-maintenance",
-    "/contact",
   ];
   return routes.map((r) => ({
     url: `${base}${r}`,
