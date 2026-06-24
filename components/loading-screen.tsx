@@ -5,10 +5,15 @@ import { useEffect, useState } from "react";
 import { SITE } from "@/lib/constants";
 
 export function LoadingScreen() {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
+    if (sessionStorage.getItem("introPlayed")) {
+      return;
+    }
+
+    setVisible(true);
     const start = Date.now();
     const duration = 2200;
 
@@ -19,7 +24,10 @@ export function LoadingScreen() {
       if (elapsed < duration) {
         requestAnimationFrame(tick);
       } else {
-        setTimeout(() => setVisible(false), 400);
+        setTimeout(() => {
+          setVisible(false);
+          sessionStorage.setItem("introPlayed", "1");
+        }, 400);
       }
     };
     requestAnimationFrame(tick);

@@ -26,18 +26,20 @@ export function Footer() {
             <p className="mb-4 font-mono text-xs tracking-[0.3em] text-ice uppercase">
               Navigation
             </p>
-            <ul className="space-y-3">
-              {NAV_LINKS.map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    className="text-sm text-muted transition-colors hover:text-white"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <nav aria-label="Footer navigation">
+              <ul className="space-y-3">
+                {NAV_LINKS.map((link) => (
+                  <li key={link.href}>
+                    <a
+                      href={link.href}
+                      className="text-sm text-muted transition-colors hover:text-white"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </div>
 
           <div>

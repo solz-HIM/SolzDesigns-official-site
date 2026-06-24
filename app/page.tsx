@@ -1,4 +1,12 @@
+import type { Metadata } from "next";
 import { GrainOverlay } from "@/animations/grain-overlay";
+
+export const metadata: Metadata = {
+  title: "Solz Designs — Premium Web & Brand Design Studio",
+  description:
+    "Zimbabwe's premium creative studio. We build high-converting websites, bold brand identities, and immersive digital experiences.",
+  alternates: { canonical: "https://solzdesigns.co.zw" },
+};
 import { LoadingScreen } from "@/components/loading-screen";
 import { Navigation } from "@/components/navigation";
 import { SmoothScrollProvider } from "@/components/smooth-scroll-provider";

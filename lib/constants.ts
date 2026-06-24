@@ -17,37 +17,65 @@ export const NAV_LINKS = [
 export const SERVICES = [
   {
     title: "Web Portfolio",
+    slug: "portfolio",
     price: "$80 – $150",
     phrase: "Showcase your work with a site that impresses.",
     icon: "layout" as const,
-    image:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80",
+    image: "/portfolio%201/portfolio.webp",
+    description:
+      "A premium portfolio website that puts your work front and centre. Immersive layouts, smooth motion, and editorial typography designed to make every project the hero.",
+    includes: [
+      "Custom design — no templates",
+      "Mobile-first, fully responsive build",
+      "Smooth animations & micro-interactions",
+      "Performance & SEO optimised",
+      "Up to 10 project showcases",
+    ],
   },
   {
     title: "E-Commerce / Business Website",
+    slug: "e-commerce",
     price: "$500",
     phrase: "Launch your store or business online with confidence.",
     icon: "shopping" as const,
-    image:
-      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=80",
+    image: "/e-commerce/e-commerce.webp",
+    description:
+      "A full-featured online store or business website built to convert visitors into customers. Clean product pages, smooth checkout, and a shopping experience that builds trust and drives sales.",
+    includes: [
+      "Full e-commerce or business site",
+      "Product listings, cart & checkout",
+      "Mobile-first, fully responsive build",
+      "Performance & SEO optimised",
+      "Payment integration ready",
+    ],
   },
   {
-    title: "ATS-Friendly Resume & Cover Letters",
-    price: "$10",
-    phrase: "Get past the bots and into the interview room.",
-    icon: "file" as const,
-    image:
-      "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=600&q=80",
-  },
-  {
-    title: "Data Entry & Report Writing",
-    price: "$20",
-    phrase: "Clean data and polished reports, delivered on time.",
+    title: "Website Maintenance",
+    slug: "website-maintenance",
+    price: "$150/mo",
+    phrase: "Keep your site fast, secure, and always up to date.",
     icon: "database" as const,
-    image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80",
+    image: "/website%20maintainance/website-maintenance.webp",
+    description:
+      "Your website is your 24/7 salesperson — keep it running at its best. We handle updates, security patches, performance checks, and content changes so you never have to worry.",
+    includes: [
+      "Monthly security & software updates",
+      "Performance monitoring & fixes",
+      "Content & copy updates",
+      "Uptime monitoring",
+      "Priority support",
+    ],
   },
-] as const;
+] satisfies {
+  title: string;
+  slug: string;
+  price: string;
+  phrase: string;
+  icon: "layout" | "shopping" | "database" | "file";
+  image: string | null;
+  description: string;
+  includes: string[];
+}[];
 
 export const FEATURES = [
   {
@@ -77,8 +105,7 @@ export const FEATURES = [
 ] as const;
 
 export const STATS = [
-  { value: 50, suffix: "+", label: "Projects Completed" },
-  { value: 95, suffix: "%", label: "Client Satisfaction" },
+  { value: 100, suffix: "%", label: "Client Satisfaction" },
   { value: 24, suffix: "/7", label: "Support" },
 ] as const;
 

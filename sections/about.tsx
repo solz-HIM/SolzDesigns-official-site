@@ -47,7 +47,7 @@ export function AboutSection() {
 
             <div className="mt-10 grid grid-cols-2 gap-6 border-t border-white/5 pt-10">
               {[
-                { value: "4+", label: "Core Services" },
+                { value: "3", label: "Core Services" },
                 { value: "100%", label: "Dedicated Support" },
                 { value: "Global", label: "Client Reach" },
                 { value: "Detail", label: "Driven Craft" },

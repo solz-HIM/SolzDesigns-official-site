@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { SITE } from "@/lib/constants";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -10,30 +9,37 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://solzdesigns.co.zw"),
   title: {
-    default: `${SITE.name} — ${SITE.tagline}`,
-    template: `%s | ${SITE.name}`,
+    default: "Solz Designs — Premium Web & Brand Design Studio",
+    template: "%s | Solz Designs",
   },
-  description: SITE.mission,
-  keywords: [
-    "web design",
-    "digital agency",
-    "portfolio websites",
-    "e-commerce",
-    "Zimbabwe",
-    "Solz Designs",
-  ],
-  authors: [{ name: SITE.owner }],
+  description:
+    "Solz Designs is a creative design studio in Zimbabwe building premium websites, brand identities, and immersive digital experiences.",
+  keywords: ["web design Zimbabwe", "branding Harare", "Solz Designs", "UI UX design", "creative studio Zimbabwe"],
+  authors: [{ name: "Solz Designs" }],
+  creator: "Solz Designs",
   openGraph: {
-    title: `${SITE.name} — ${SITE.tagline}`,
-    description: SITE.mission,
     type: "website",
-    locale: "en_US",
+    locale: "en_ZW",
+    url: "https://solzdesigns.co.zw",
+    siteName: "Solz Designs",
+    title: "Solz Designs — Premium Web & Brand Design Studio",
+    description: "Premium websites, branding, and immersive digital experiences.",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Solz Designs" }],
   },
-  icons: {
-    icon: "/logo.png",
-    apple: "/logo.png",
+  twitter: {
+    card: "summary_large_image",
+    title: "Solz Designs — Premium Web & Brand Design Studio",
+    description: "Premium websites, branding, and immersive digital experiences.",
+    images: ["/og-image.jpg"],
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
+  },
+  alternates: { canonical: "https://solzdesigns.co.zw" },
 };
 
 export const viewport: Viewport = {
@@ -49,7 +55,24 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} dark`}>
-      <body className="min-h-screen overflow-x-hidden font-sans">{children}</body>
+      <body className="min-h-screen overflow-x-hidden font-sans">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Solz Designs",
+              url: "https://solzdesigns.co.zw",
+              logo: "https://solzdesigns.co.zw/logo.png",
+              description: "Premium web and brand design studio in Zimbabwe.",
+              address: { "@type": "PostalAddress", addressCountry: "ZW" },
+              sameAs: ["https://www.facebook.com/profile.php?id=61590005594397"],
+            }),
+          }}
+        />
+        {children}
+      </body>
     </html>
   );
 }
