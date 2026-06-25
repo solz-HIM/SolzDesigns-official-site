@@ -4,6 +4,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SERVICES } from "@/lib/constants";
 import { getServiceWhatsAppUrl } from "@/lib/contact";
+import { Navigation } from "@/components/navigation";
+import { Footer } from "@/components/footer";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -28,6 +30,8 @@ export default async function ServicePage({ params }: Props) {
   if (!service) notFound();
 
   return (
+    <>
+    <Navigation />
     <main className="min-h-screen bg-bg-primary text-white">
       {service.image ? (
         <div className="relative h-64 w-full sm:h-80 md:h-[28rem]">
@@ -90,5 +94,7 @@ export default async function ServicePage({ params }: Props) {
         </a>
       </div>
     </main>
+    <Footer />
+    </>
   );
 }

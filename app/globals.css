@@ -1,6 +1,5 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -114,4 +113,14 @@ html.lenis body {
 
 .lenis.lenis-stopped {
   overflow: hidden;
+}
+
+/* WavyBackground: Safari needs CSS blur on the canvas element itself */
+.wavy-safari-blur {
+  filter: var(--wavy-blur);
+}
+
+/* Hero static gradient fallback for mobile / reduced-motion */
+.hero-gradient {
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(34,211,238,0.12) 0%, transparent 70%), #090909;
 }

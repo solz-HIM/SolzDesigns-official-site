@@ -5,15 +5,15 @@ import { useEffect, useState } from "react";
 import { SITE } from "@/lib/constants";
 
 export function LoadingScreen() {
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     if (sessionStorage.getItem("introPlayed")) {
+      setVisible(false);
       return;
     }
 
-    setVisible(true);
     const start = Date.now();
     const duration = 2200;
 
@@ -43,7 +43,7 @@ export function LoadingScreen() {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.9, ease: [0.23, 1, 0.32, 1] }}
-          aria-hidden={!visible}
+          aria-hidden
           role="presentation"
         >
           <div className="flex gap-1 overflow-hidden">

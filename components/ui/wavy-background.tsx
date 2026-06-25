@@ -1,6 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { createNoise3D } from "simplex-noise";
 
 export const WavyBackground = ({
@@ -30,78 +30,98 @@ export const WavyBackground = ({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationId = useRef<number>(0);
   const nt = useRef(0);
-  const paused = useRef(false);
+  const lastFrame = useRef(0);
+  // Store dimensions in refs — never read from DOM inside draw loop
+  const dims = useRef({ w: 0, h: 0 });
 
-  const getSpeed = () => (speed === "fast" ? 0.002 : 0.001);
-
-  const waveColors = colors ?? ["#38bdf8", "#818cf8", "#c084fc", "#e879f9", "#22d3ee"];
-
-  const [isSafari, setIsSafari] = useState(false);
-
-  useEffect(() => {
-    setIsSafari(
-      typeof window !== "undefined" &&
-        navigator.userAgent.includes("Safari") &&
-        !navigator.userAgent.includes("Chrome"),
-    );
-  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d")!;
 
-    const isMobile = window.innerWidth < 768;
-    const step = isMobile ? 10 : 5;
+    // Safari needs CSS blur on the element (ctx.filter not supported)
+    const isSafari =
+      navigator.userAgent.includes("Safari") &&
+      !navigator.userAgent.includes("Chrome");
+    if (isSafari) canvas.style.filter = `blur(${blur}px)`;
+    const getSpeed = () => (speed === "fast" ? 0.002 : 0.001);
+    const waveColors = colors ?? ["#38bdf8", "#818cf8", "#c084fc", "#e879f9", "#22d3ee"];
+    const step = window.innerWidth < 768 ? 10 : 5;
+    const FRAME_MS = 1000 / 30; // cap at 30 fps
 
     const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      dims.current.w = window.innerWidth;
+      dims.current.h = window.innerHeight;
+      canvas.width = dims.current.w;
+      canvas.height = dims.current.h;
       ctx.filter = `blur(${blur}px)`;
     };
     resize();
 
+    // Respect prefers-reduced-motion — paint one static frame then stop
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
     const drawWave = (n: number) => {
+      const { w, h } = dims.current;
       nt.current += getSpeed();
       for (let i = 0; i < n; i++) {
         ctx.beginPath();
         ctx.lineWidth = waveWidth ?? 50;
         ctx.strokeStyle = waveColors[i % waveColors.length];
-        for (let x = 0; x < canvas.width; x += step) {
+        for (let x = 0; x < w; x += step) {
           const y = noise(x / 800, 0.3 * i, nt.current) * 100;
-          ctx.lineTo(x, y + canvas.height * 0.5);
+          ctx.lineTo(x, y + h * 0.5);
         }
         ctx.stroke();
         ctx.closePath();
       }
     };
 
-    const render = () => {
-      if (paused.current) return;
+    const render = (ts: number) => {
+      if (ts - lastFrame.current < FRAME_MS) {
+        animationId.current = requestAnimationFrame(render);
+        return;
+      }
+      lastFrame.current = ts;
+
+      const { w, h } = dims.current;
       ctx.fillStyle = backgroundFill ?? "black";
       ctx.globalAlpha = waveOpacity;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillRect(0, 0, w, h);
       drawWave(5);
-      animationId.current = requestAnimationFrame(render);
+
+      if (!prefersReduced) {
+        animationId.current = requestAnimationFrame(render);
+      }
     };
 
+    const paused = { current: false };
     const onVisibility = () => {
       if (document.hidden) {
         paused.current = true;
         cancelAnimationFrame(animationId.current);
-      } else {
+      } else if (!prefersReduced) {
         paused.current = false;
-        render();
+        lastFrame.current = 0;
+        animationId.current = requestAnimationFrame(render);
       }
     };
 
-    window.addEventListener("resize", resize);
+    let resizeTimer: ReturnType<typeof setTimeout>;
+    const onResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(resize, 150);
+    };
+
+    window.addEventListener("resize", onResize);
     document.addEventListener("visibilitychange", onVisibility);
-    render();
+    animationId.current = requestAnimationFrame(render);
 
     return () => {
       cancelAnimationFrame(animationId.current);
-      window.removeEventListener("resize", resize);
+      clearTimeout(resizeTimer);
+      window.removeEventListener("resize", onResize);
       document.removeEventListener("visibilitychange", onVisibility);
     };
   }, []);
@@ -114,10 +134,9 @@ export const WavyBackground = ({
       )}
     >
       <canvas
-        className="absolute inset-0 z-0"
         ref={canvasRef}
         aria-hidden="true"
-        style={isSafari ? { filter: `blur(${blur}px)` } : undefined}
+        className="absolute inset-0 z-0"
       />
       <div className={cn("relative z-10", className)} {...props}>
         {children}

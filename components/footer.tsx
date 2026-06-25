@@ -1,5 +1,4 @@
 import { Mail, MessageCircle } from "lucide-react";
-import { IconBrandFacebook } from "@tabler/icons-react";
 import { Logo } from "@/components/logo";
 import { CONTACT_MESSAGE, getEmailUrl, getWhatsAppUrl } from "@/lib/contact";
 import { NAV_LINKS, SITE } from "@/lib/constants";
@@ -77,7 +76,21 @@ export function Footer() {
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 text-sm text-muted transition-colors hover:text-white"
                 >
-                  <IconBrandFacebook size={16} className="text-ice" stroke={1.5} />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width={16}
+                    height={16}
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={1.5}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="text-ice"
+                    aria-hidden="true"
+                  >
+                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                  </svg>
                   Facebook
                 </a>
               </li>
