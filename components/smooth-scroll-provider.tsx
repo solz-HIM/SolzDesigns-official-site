@@ -20,8 +20,17 @@ export function SmoothScrollProvider({
       smoothWheel: true,
     });
     lenisRef.current = lenis;
+    (window as Window & { __lenis?: Lenis }).__lenis = lenis;
 
     lenis.on("scroll", ScrollTrigger.update);
+
+    // Handle hash in URL when arriving via client-side navigation (e.g. /#services)
+    const hash = window.location.hash;
+    if (hash) {
+      setTimeout(() => {
+        lenis.scrollTo(hash, { offset: -90, duration: 1.2 });
+      }, 80);
+    }
 
     let rafId: number;
     const raf = (time: number) => {
@@ -34,6 +43,7 @@ export function SmoothScrollProvider({
       cancelAnimationFrame(rafId);
       lenis.destroy();
       lenisRef.current = null;
+      delete (window as Window & { __lenis?: Lenis }).__lenis;
     };
   }, []);
 

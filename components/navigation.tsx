@@ -1,7 +1,10 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
+import type Lenis from "lenis";
 import { Menu, X } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Logo } from "@/components/logo";
 import { MagneticButton } from "@/components/magnetic-button";
@@ -9,9 +12,19 @@ import { QUOTE_MESSAGE, getWhatsAppUrl } from "@/lib/contact";
 import { NAV_LINKS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
+function scrollToHash(hash: string) {
+  const lenis = (window as Window & { __lenis?: Lenis }).__lenis;
+  if (lenis) {
+    lenis.scrollTo(hash, { offset: -90, duration: 1.2 });
+  } else {
+    document.querySelector(hash)?.scrollIntoView({ behavior: "smooth" });
+  }
+}
+
 export function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -44,13 +57,19 @@ export function Navigation() {
             aria-label="Main navigation"
           >
             {NAV_LINKS.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
                 className="text-sm tracking-wide text-muted transition-colors duration-300 hover:text-white"
+                onClick={(e) => {
+                  if (pathname === "/" && link.href.startsWith("/#")) {
+                    e.preventDefault();
+                    scrollToHash(link.href.slice(1));
+                  }
+                }}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </nav>
           <div className="hidden md:block">
@@ -85,17 +104,26 @@ export function Navigation() {
           >
             <nav className="flex flex-col gap-8" aria-label="Mobile navigation">
               {NAV_LINKS.map((link, i) => (
-                <motion.a
+                <motion.div
                   key={link.href}
-                  href={link.href}
-                  className="font-heading text-3xl text-white"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.08 }}
-                  onClick={() => setMobileOpen(false)}
                 >
-                  {link.label}
-                </motion.a>
+                  <Link
+                    href={link.href}
+                    className="font-heading text-3xl text-white"
+                    onClick={(e) => {
+                      setMobileOpen(false);
+                      if (pathname === "/" && link.href.startsWith("/#")) {
+                        e.preventDefault();
+                        scrollToHash(link.href.slice(1));
+                      }
+                    }}
+                  >
+                    {link.label}
+                  </Link>
+                </motion.div>
               ))}
             </nav>
             <div className="mt-auto">
