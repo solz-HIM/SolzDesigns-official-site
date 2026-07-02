@@ -109,8 +109,26 @@ export function ServicesSection() {
           label="Services"
           title="Digital Solutions Tailored To You"
           description="Click a card to learn more. Transparent pricing, premium execution."
-          className="mb-10 sm:mb-16"
+          className="mb-4 sm:mb-6"
         />
+
+        <p className="mb-10 text-center text-sm text-muted sm:mb-16">
+          Looking for{" "}
+          <Link
+            href="/web-design-harare"
+            className="text-ice underline-offset-2 hover:underline"
+          >
+            web design in Harare
+          </Link>{" "}
+          or{" "}
+          <Link
+            href="/web-development-zimbabwe"
+            className="text-ice underline-offset-2 hover:underline"
+          >
+            web development in Zimbabwe
+          </Link>
+          ? We work remotely across Zimbabwe and globally.
+        </p>
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 xl:grid-cols-3">
           {SERVICES.map((service) => (

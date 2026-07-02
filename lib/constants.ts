@@ -5,6 +5,8 @@ export const SITE = {
     "We design, develop, and deliver digital solutions that make your brand unforgettable.",
   owner: "Mcgyver Chibvongodze",
   facebook: "https://www.facebook.com/profile.php?id=61590005594397",
+  instagram: "https://www.instagram.com/solz_designs",
+  tiktok: "https://www.tiktok.com/@solz.designs",
 } as const;
 
 export const NAV_LINKS = [

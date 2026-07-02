@@ -65,13 +65,33 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "Organization",
+              "@type": "ProfessionalService",
               name: "Solz Designs",
               url: "https://solzdesigns.co.zw",
               logo: "https://solzdesigns.co.zw/logo.png",
-              description: "Premium web and brand design studio in Zimbabwe.",
-              address: { "@type": "PostalAddress", addressCountry: "ZW" },
-              sameAs: ["https://www.facebook.com/profile.php?id=61590005594397"],
+              image: "https://solzdesigns.co.zw/og-image.jpg",
+              description:
+                "Premium web design and development studio in Harare, Zimbabwe. Building websites, brand identities, and digital experiences for businesses across Zimbabwe and globally.",
+              areaServed: ["Harare", "Zimbabwe", "Worldwide"],
+              founder: { "@type": "Person", name: "Mcgyver Chibvongodze" },
+              priceRange: "$80 – $500",
+              telephone: "+263778231792",
+              email: "mcgyver8605@gmail.com",
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "Harare",
+                addressCountry: "ZW",
+              },
+              geo: {
+                "@type": "GeoCoordinates",
+                latitude: -17.8252,
+                longitude: 31.0335,
+              },
+              sameAs: [
+                "https://www.facebook.com/profile.php?id=61590005594397",
+                "https://www.instagram.com/solz_designs",
+                "https://www.tiktok.com/@solz.designs",
+              ],
             }),
           }}
         />

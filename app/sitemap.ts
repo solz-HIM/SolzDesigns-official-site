@@ -7,6 +7,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/services/e-commerce",
     "/services/portfolio",
     "/services/website-maintenance",
+    "/web-design-harare",
+    "/web-development-zimbabwe",
   ];
   return routes.map((r) => ({
     url: `${base}${r}`,
