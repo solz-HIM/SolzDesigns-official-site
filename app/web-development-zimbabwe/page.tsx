@@ -1,374 +1,302 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Navigation } from "@/components/navigation";
+import { ButtonLink } from "@/components/button";
+import { Cta } from "@/sections/cta";
+import { Faq } from "@/sections/faq";
 import { Footer } from "@/components/footer";
-import { MagneticButton } from "@/components/magnetic-button";
-import { getWhatsAppUrl, getEmailUrl, QUOTE_MESSAGE } from "@/lib/contact";
+import { Navigation } from "@/components/navigation";
+import { PageHero } from "@/components/page-hero";
+import { Process } from "@/sections/process";
+import { Reveal } from "@/components/reveal";
+import { SectionHeading } from "@/components/section-heading";
+import { getWhatsAppUrl, QUOTE_MESSAGE } from "@/lib/contact";
+import { LOCATIONS } from "@/lib/locations";
+import {
+  breadcrumbNode,
+  faqNode,
+  graph,
+  localServiceNode,
+  webPageNode,
+} from "@/lib/schema";
+import { SERVICES } from "@/lib/site";
+
+/**
+ * The national page.
+ *
+ * This URL matters more than any other on the site: it drew 184 of the site's
+ * 208 total impressions in the last three months, ranking around position 80.
+ * It already has whatever crawl history and authority this domain has, so it
+ * is rewritten in place rather than replaced — the URL does not change.
+ *
+ * Its job is different from the city pages. Those answer "who can build me a
+ * site *here*". This one answers "how does web development work in Zimbabwe",
+ * which is the broader, more informational query the impressions are coming
+ * from — and the kind of question AI assistants answer by quoting a source.
+ */
+
+const TITLE = "Web Development Zimbabwe — Custom Websites Built for Zimbabwean Business";
+const DESCRIPTION =
+  "Web development in Zimbabwe done properly: custom Next.js builds, not templates. What it costs, how long it takes, and what to look for in a developer. From $80.";
 
 export const metadata: Metadata = {
-  title: "Web Development in Zimbabwe",
-  description:
-    "Professional web development in Zimbabwe from Solz Designs. Custom websites built with Next.js, TypeScript, and Tailwind CSS for businesses across Harare and beyond. Starting from $80.",
-  alternates: {
-    canonical: "https://solzdesigns.co.zw/web-development-zimbabwe",
-  },
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: "/web-development-zimbabwe" },
   openGraph: {
-    title: "Web Development in Zimbabwe | Solz Designs",
-    description:
-      "Professional web development in Zimbabwe. Custom Next.js websites for businesses across Harare and beyond. From $80.",
-    url: "https://solzdesigns.co.zw/web-development-zimbabwe",
+    title: TITLE,
+    description: DESCRIPTION,
+    url: "/web-development-zimbabwe",
   },
 };
 
-const faq = [
+const crumbs = [
+  { name: "Home", path: "/" },
+  { name: "Web development Zimbabwe", path: "/web-development-zimbabwe" },
+];
+
+const CHECKLIST = [
   {
-    q: "What does web development cost in Zimbabwe?",
-    a: "Professional web development in Zimbabwe typically ranges from $80 for a portfolio to $500+ for a full e-commerce or business platform. Solz Designs' pricing is fixed and transparent: portfolios are $80–$150, business and e-commerce sites are $500, and ongoing maintenance is $150 per month.",
+    title: "Ask who owns the domain",
+    body: "The domain must be registered in your business's name, not the developer's. If a developer registers it under their own account, they control your web address — and businesses discover this at the worst possible moment, usually during a dispute. Ask for the registrar login before you pay anything.",
   },
   {
-    q: "What technologies do you use to build websites?",
-    a: "We build with Next.js, TypeScript, and Tailwind CSS — modern tools that produce fast, SEO-friendly, scalable websites. Our sites pass Google's Core Web Vitals targets and are optimised for performance from day one.",
+    title: "Ask what happens if you leave",
+    body: "You should be able to take your site to another developer without permission or a release fee. If the answer involves a proprietary platform or a monthly subscription that switches the site off when it lapses, you are renting, not buying — price it accordingly.",
   },
   {
-    q: "Do you build e-commerce websites in Zimbabwe?",
-    a: "Yes. Our E-Commerce / Business Website package at $500 covers full product listings, cart and checkout functionality, mobile responsiveness, payment integration, and SEO optimisation. It's everything a business needs to sell online.",
+    title: "Ask what the site weighs",
+    body: "Ask for the page weight in megabytes. A well-built business site should be well under one megabyte on first load. Many template builds ship three to four, which on Zimbabwean mobile data is both a real cost to your visitor and a real ranking penalty.",
   },
   {
-    q: "How do remote projects work?",
-    a: "We communicate via WhatsApp and email throughout the project. You'll receive regular progress updates, a review stage before the site goes live, and handoff documentation when we deliver. The entirely remote workflow is the same quality you'd expect from an in-person studio.",
-  },
-  {
-    q: "Do you offer ongoing support after the website is launched?",
-    a: "Yes. Our Website Maintenance package covers monthly security updates, performance monitoring, content changes, and priority support for $150 per month. It's designed to keep your site fast, secure, and up to date without you having to think about it.",
+    title: "Ask how you will be found",
+    body: "A site is not marketing on its own. Ask specifically whether Search Console will be set up, whether a sitemap will be submitted, and whether the pages target anything people actually search. If those questions get a vague answer, the site will be invisible no matter how it looks.",
   },
 ];
 
-const faqJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: faq.map(({ q, a }) => ({
-    "@type": "Question",
-    name: q,
-    acceptedAnswer: { "@type": "Answer", text: a },
-  })),
-};
+const STACK = [
+  {
+    term: "Next.js and React",
+    detail:
+      "An open-source framework built on React and widely used for large commercial sites. Pages are pre-rendered to static HTML, so they arrive complete instead of being assembled in the visitor's browser — faster to load, and far easier for Google to crawl than a site that only appears once JavaScript has run.",
+  },
+  {
+    term: "Global edge delivery",
+    detail:
+      "Sites are served from the network location nearest the visitor rather than from a single machine. A customer in Harare and a buyer in Johannesburg both get a nearby copy.",
+  },
+  {
+    term: "Structured data",
+    detail:
+      "Machine-readable markup describing your business, services, prices and location — the information Google's AI Overviews, ChatGPT and Perplexity read when deciding what to say about you.",
+  },
+  {
+    term: "Core Web Vitals",
+    detail:
+      "Google's own loading, interactivity and visual-stability measurements are treated as build requirements, not as something to fix later once rankings disappoint.",
+  },
+];
 
-const breadcrumbJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    {
-      "@type": "ListItem",
-      position: 1,
-      name: "Home",
-      item: "https://solzdesigns.co.zw",
-    },
-    {
-      "@type": "ListItem",
-      position: 2,
-      name: "Web Development in Zimbabwe",
-      item: "https://solzdesigns.co.zw/web-development-zimbabwe",
-    },
-  ],
-};
+const FAQS_NATIONAL = [
+  {
+    q: "What does web development cost in Zimbabwe?",
+    a: "Solz Designs charges $80 to $100 for a portfolio site, $500 for a full multi-page business website, and $500 for an e-commerce store — fixed prices quoted in writing before work starts. Prices across the Zimbabwean market vary a great deal, and the variation reflects the cost of running the business behind the website at least as much as it reflects the website itself: an agency with an office, a sales team and account managers has to recover that somewhere. When comparing quotes, ask what is actually included and insist on a fixed figure rather than an hourly estimate.",
+  },
+  {
+    q: "What is the best web development company in Zimbabwe?",
+    a: "There is no single best one — it depends on what you need. A large agency suits a corporate with committee approvals and a budget to match. A small studio like Solz Designs suits a business that wants a modern technical standard without the overhead, and that would rather talk directly to the person building the site than to an account manager. Rather than trusting any ranking, ask every developer the same four questions: who owns the domain, what happens if I leave, how heavy is the site, and how will I actually be found. The answers separate the good from the merely expensive faster than a portfolio does.",
+  },
+  {
+    q: "How long does web development take in Zimbabwe?",
+    a: "A business website takes 5–10 working days at Solz Designs, and an e-commerce store takes 2–4 weeks, measured from the day we receive your content. Timelines quoted elsewhere are often much longer, and in our experience that usually reflects how many projects are queued ahead of yours rather than how long the building itself takes. Whoever you hire, ask for the delivery date in writing and ask what specifically would delay it — the honest answer is almost always 'waiting for content from you', which is something you can prepare for in advance.",
+  },
+  {
+    q: "Should I use WordPress or a custom-built website in Zimbabwe?",
+    a: "For most Zimbabwean businesses, a custom static build is the better choice. WordPress carries ongoing costs that are easy to miss: paid hosting capable of running PHP and a database, plugin licences, and regular security patching, because an unpatched WordPress site is a genuine target for automated attacks. A brochure or business site built the way we build it has no database and no admin login to attack at all, runs on free or near-free hosting, and loads considerably faster. Online stores are different — a store needs somewhere to keep products and orders, so that build does involve a database, and we secure and maintain it accordingly. WordPress still makes sense when a large team needs to publish content daily.",
+  },
+  {
+    q: "Can Zimbabwean developers build for international clients?",
+    a: "Yes, and it is common. Solz Designs works with clients abroad as well as across Zimbabwe, quoting in USD and running everything over WhatsApp, email and video calls. Time zones are rarely an issue — Zimbabwe sits within a couple of hours of most of Europe and shares a working day with the Middle East and much of Asia.",
+  },
+  {
+    q: "Do I need a .co.zw domain for a Zimbabwean business?",
+    a: "Not necessarily. A .co.zw domain is a mild signal to Google that you serve Zimbabwe and can read as more locally credible to Zimbabwean customers, at roughly $20–$30 per year. A .com works equally well if you also serve customers abroad, and location is communicated to Google through your Google Business Profile and on-page content regardless. Many businesses register both and redirect one.",
+  },
+];
 
-export default function WebDevelopmentZimbabwePage() {
+export default function Page() {
+  const jsonLd = graph(
+    webPageNode({
+      path: "/web-development-zimbabwe",
+      name: TITLE,
+      description: DESCRIPTION,
+      crumbs,
+    }),
+    breadcrumbNode(crumbs),
+    localServiceNode({
+      slug: "web-development-zimbabwe",
+      city: "Harare",
+      name: "Web development in Zimbabwe",
+      description: DESCRIPTION,
+    }),
+    faqNode(FAQS_NATIONAL, "/web-development-zimbabwe"),
+  );
+
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLd }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-      />
-      <Navigation />
-      <main>
-        {/* Hero */}
-        <section className="hero-gradient px-4 pb-16 pt-32 sm:px-6 sm:pb-24 sm:pt-40 lg:px-10">
-          <div className="mx-auto max-w-3xl">
-            <p className="mb-4 font-mono text-xs tracking-[0.3em] text-ice uppercase">
-              Web Development — Zimbabwe
-            </p>
-            <h1 className="font-heading text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl">
-              Web Development
-              <br className="hidden sm:block" /> in Zimbabwe
-            </h1>
-            <p className="mt-6 text-lg leading-relaxed text-muted">
-              Solz Designs builds modern, high-performance websites for
-              businesses and individuals across Zimbabwe — using the same
-              technologies that power the world&apos;s leading digital products.
-            </p>
-            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-              <MagneticButton
-                href={getWhatsAppUrl(QUOTE_MESSAGE)}
-                external
-                variant="primary"
-              >
-                Get a Free Quote
-              </MagneticButton>
-              <MagneticButton
-                href={getEmailUrl("Web Development Enquiry — Zimbabwe")}
-                variant="secondary"
-              >
-                Email Us Instead
-              </MagneticButton>
-            </div>
+      <Navigation tone="ink" />
+      <main id="main">
+        <PageHero
+          eyebrow="Zimbabwe"
+          title="Web development Zimbabwe"
+          lead="Custom-built websites for Zimbabwean businesses — hand-coded in Next.js, not assembled from a template. Here is what that means, what it costs, and how to tell a good developer from an expensive one."
+          crumbs={crumbs}
+        >
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <ButtonLink
+              href={getWhatsAppUrl(QUOTE_MESSAGE)}
+              external
+              variant="ink"
+              className="w-full sm:w-auto"
+            >
+              Get a fixed quote
+            </ButtonLink>
+            <ButtonLink href="/pricing" variant="ghostInk" className="w-full sm:w-auto">
+              See full pricing
+            </ButtonLink>
           </div>
-        </section>
+        </PageHero>
 
-        {/* Cost anchor */}
-        <section className="px-4 py-16 sm:px-6 sm:py-24 lg:px-10" id="cost">
-          <div className="mx-auto max-w-3xl">
-            <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">
-              What does web development cost in Zimbabwe?
-            </h2>
-            <p className="mt-4 text-base leading-relaxed text-muted">
-              Professional web development in Zimbabwe typically ranges from{" "}
-              <span className="text-white">$80 to $500+</span> depending on the
-              project&apos;s scope and complexity. At Solz Designs, all prices
-              are fixed and transparent: a portfolio site costs $80–$150, a
-              full business or e-commerce site costs $500, and ongoing
-              maintenance is $150 per month. No hidden costs, no hourly billing
-              surprises.
-            </p>
-          </div>
-        </section>
+        {/* The buyer's checklist — the genuinely useful part of this page */}
+        <section className="bg-ink px-5 py-20 sm:px-8 sm:py-28">
+          <div className="mx-auto max-w-[88rem]">
+            <SectionHeading
+              eyebrow="Before you hire anyone"
+              title={
+                <>
+                  Four questions that{" "}
+                  <span className="text-acid">separate good from expensive</span>
+                </>
+              }
+              lead="Ask these of any Zimbabwean web developer, including us. The answers tell you more than a portfolio does."
+            />
 
-        {/* Tech stack */}
-        <section className="border-t border-white/5 px-4 py-16 sm:px-6 sm:py-24 lg:px-10">
-          <div className="mx-auto max-w-3xl">
-            <p className="mb-3 font-mono text-xs tracking-[0.3em] text-ice uppercase">
-              Technology
-            </p>
-            <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">
-              Built with modern technology
-            </h2>
-            <div className="mt-6 space-y-4 text-base leading-relaxed text-muted">
-              <p>
-                Every website we build uses a modern, battle-tested technology
-                stack — the same tools used by companies like Vercel, Stripe,
-                and Linear. We build with{" "}
-                <span className="text-white">Next.js</span>,{" "}
-                <span className="text-white">TypeScript</span>, and{" "}
-                <span className="text-white">Tailwind CSS</span>, producing
-                sites that are fast by default, highly maintainable, and ready
-                for growth.
-              </p>
-              <p>
-                Modern frameworks mean your site benefits from server-side
-                rendering for fast page loads, built-in image optimisation for
-                mobile performance, and a static export that can be served from
-                a CDN with sub-second load times anywhere in the world —
-                including on Zimbabwe&apos;s mobile networks.
-              </p>
-              <p>
-                Every site we ship passes Google&apos;s Core Web Vitals
-                benchmarks, which directly influence your search rankings. Good
-                code and good design aren&apos;t separate — they&apos;re the
-                same goal.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Packages table */}
-        <section className="border-t border-white/5 px-4 py-16 sm:px-6 sm:py-24 lg:px-10">
-          <div className="mx-auto max-w-3xl">
-            <p className="mb-3 font-mono text-xs tracking-[0.3em] text-ice uppercase">
-              Packages
-            </p>
-            <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">
-              Web development packages for Zimbabwe
-            </h2>
-            <p className="mt-4 text-base leading-relaxed text-muted">
-              Three clear packages designed to match the most common project
-              types. Every build is fully custom — no templates, no page
-              builders.
-            </p>
-            <div className="mt-8 overflow-x-auto">
-              <table className="w-full border-collapse text-sm">
-                <thead>
-                  <tr className="border-b border-white/10">
-                    <th className="py-3 pr-6 text-left font-mono text-xs tracking-widest text-ice uppercase">
-                      Package
-                    </th>
-                    <th className="py-3 pr-6 text-left font-mono text-xs tracking-widest text-ice uppercase">
-                      What You Get
-                    </th>
-                    <th className="py-3 text-left font-mono text-xs tracking-widest text-ice uppercase">
-                      Price
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-white/5">
-                  <tr>
-                    <td className="py-4 pr-6 font-medium text-white">
-                      <Link
-                        href="/services/portfolio"
-                        className="transition-colors hover:text-ice"
-                      >
-                        Web Portfolio
-                      </Link>
-                    </td>
-                    <td className="py-4 pr-6 text-muted">
-                      Custom design, up to 10 project showcases, mobile-first,
-                      SEO-ready
-                    </td>
-                    <td className="py-4 font-medium text-white">$80 – $150</td>
-                  </tr>
-                  <tr>
-                    <td className="py-4 pr-6 font-medium text-white">
-                      <Link
-                        href="/services/e-commerce"
-                        className="transition-colors hover:text-ice"
-                      >
-                        E-Commerce / Business
-                      </Link>
-                    </td>
-                    <td className="py-4 pr-6 text-muted">
-                      Full online store or business site, cart, checkout,
-                      payment integration
-                    </td>
-                    <td className="py-4 font-medium text-white">$500</td>
-                  </tr>
-                  <tr>
-                    <td className="py-4 pr-6 font-medium text-white">
-                      <Link
-                        href="/services/website-maintenance"
-                        className="transition-colors hover:text-ice"
-                      >
-                        Website Maintenance
-                      </Link>
-                    </td>
-                    <td className="py-4 pr-6 text-muted">
-                      Security updates, performance monitoring, content changes,
-                      priority support
-                    </td>
-                    <td className="py-4 font-medium text-white">$150/mo</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </section>
-
-        {/* Why quality development matters */}
-        <section className="border-t border-white/5 px-4 py-16 sm:px-6 sm:py-24 lg:px-10">
-          <div className="mx-auto max-w-3xl">
-            <p className="mb-3 font-mono text-xs tracking-[0.3em] text-ice uppercase">
-              Why It Matters
-            </p>
-            <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">
-              Why quality development makes the difference
-            </h2>
-            <div className="mt-6 space-y-4 text-base leading-relaxed text-muted">
-              <p>
-                A website built on a page builder or a generic WordPress
-                template will typically score 40–60 on Google&apos;s PageSpeed
-                Insights. That means slow load times, poor mobile experience,
-                and lower search rankings. On Zimbabwe&apos;s mobile networks,
-                slow sites don&apos;t just lose users — they never even reach
-                them.
-              </p>
-              <p>
-                Every site Solz Designs builds targets a PageSpeed score of 90+
-                on mobile. This isn&apos;t optional — it&apos;s the foundation
-                of everything else. A fast, accessible website is one that can
-                actually be found, used, and trusted.
-              </p>
-              <p>
-                Design matters as much as code. Learn more about our approach
-                to{" "}
-                <Link
-                  href="/web-design-harare"
-                  className="text-ice underline-offset-2 hover:underline"
-                >
-                  web design in Harare
-                </Link>{" "}
-                — design and development aren&apos;t separate services at Solz
-                Designs, they&apos;re the same process.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Remote + Zimbabwe */}
-        <section className="border-t border-white/5 px-4 py-16 sm:px-6 sm:py-24 lg:px-10">
-          <div className="mx-auto max-w-3xl">
-            <p className="mb-3 font-mono text-xs tracking-[0.3em] text-ice uppercase">
-              Serving Zimbabwe
-            </p>
-            <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">
-              Remote-first, Zimbabwe-rooted
-            </h2>
-            <p className="mt-4 text-base leading-relaxed text-muted">
-              We&apos;re based in Harare but work with clients across Zimbabwe
-              — Bulawayo, Mutare, Gweru, and beyond. Our entirely remote
-              workflow means you get the same attention and quality regardless
-              of location. Projects are managed over WhatsApp and email, with
-              regular milestones and check-ins so you always know where things
-              stand.
-            </p>
-          </div>
-        </section>
-
-        {/* FAQ */}
-        <section className="border-t border-white/5 px-4 py-16 sm:px-6 sm:py-24 lg:px-10">
-          <div className="mx-auto max-w-3xl">
-            <p className="mb-3 font-mono text-xs tracking-[0.3em] text-ice uppercase">
-              FAQ
-            </p>
-            <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">
-              Frequently asked questions
-            </h2>
-            <dl className="mt-8 space-y-8">
-              {faq.map(({ q, a }) => (
-                <div
-                  key={q}
-                  className="border-b border-white/5 pb-8 last:border-0 last:pb-0"
-                >
-                  <dt className="font-heading text-base font-semibold text-white">
-                    {q}
-                  </dt>
-                  <dd className="mt-3 text-sm leading-relaxed text-muted">{a}</dd>
-                </div>
+            <ol className="mt-14 grid gap-4 sm:grid-cols-2">
+              {CHECKLIST.map((item, i) => (
+                <li key={item.title}>
+                  <Reveal delay={i * 80} className="h-full">
+                    <div className="flex h-full flex-col rounded-card border border-ink-line bg-ink-soft p-7 sm:p-8">
+                      <span className="font-display text-4xl leading-none font-extrabold text-acid">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <h3 className="display-md mt-6 text-paper">
+                        {item.title}
+                      </h3>
+                      <p className="mt-3 text-sm leading-relaxed text-ash">
+                        {item.body}
+                      </p>
+                    </div>
+                  </Reveal>
+                </li>
               ))}
-            </dl>
+            </ol>
           </div>
         </section>
 
-        {/* CTA */}
-        <section className="border-t border-white/5 px-4 py-16 sm:px-6 sm:py-24 lg:px-10">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="mb-4 font-mono text-xs tracking-[0.3em] text-ice uppercase">
-              Ready to Start?
-            </p>
-            <h2 className="font-heading text-3xl font-bold text-white sm:text-4xl">
-              Let&apos;s build something great
-            </h2>
-            <p className="mt-4 text-base leading-relaxed text-muted">
-              Get in touch today. We&apos;ll discuss your project, answer your
-              questions, and send you a no-obligation quote.
-            </p>
-            <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-              <MagneticButton
-                href={getWhatsAppUrl(QUOTE_MESSAGE)}
-                external
-                variant="primary"
-              >
-                Get a Quote on WhatsApp
-              </MagneticButton>
-              <MagneticButton
-                href={getEmailUrl("Web Development Quote — Zimbabwe")}
-                variant="secondary"
-              >
-                Send an Email
-              </MagneticButton>
+        {/* How we build */}
+        <section className="on-acid bg-acid px-5 py-20 sm:px-8 sm:py-28">
+          <div className="mx-auto grid max-w-[88rem] gap-12 lg:grid-cols-12 lg:gap-16">
+            <div className="lg:col-span-5 lg:sticky lg:top-28 lg:self-start">
+              <SectionHeading
+                eyebrow="The stack"
+                tone="ink"
+                title="How we build"
+                lead="Four technical decisions that determine whether a Zimbabwean website is fast, findable and cheap to run."
+              />
             </div>
+            {/* A ul rather than a dl: <Reveal> wraps each row in its own div,
+                which puts dt/dd two levels below the dl and breaks the
+                description-list contract. */}
+            <ul className="lg:col-span-7">
+              {STACK.map((item, i) => (
+                <li key={item.term}>
+                  <Reveal delay={i * 70}>
+                    <div className="border-b border-ink/15 py-6">
+                      <h3 className="display-md text-ink">{item.term}</h3>
+                      <p className="mt-2.5 max-w-xl text-sm leading-relaxed text-olive sm:text-base">
+                        {item.detail}
+                      </p>
+                    </div>
+                  </Reveal>
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
+
+        <section className="bg-ink px-5 py-20 sm:px-8 sm:py-24">
+          <div className="mx-auto max-w-[88rem]">
+            <SectionHeading
+              eyebrow="Services"
+              title="What we develop"
+            />
+            <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {SERVICES.map((service, i) => (
+                <li key={service.slug}>
+                  <Reveal delay={i * 80} className="h-full">
+                    <Link
+                      href={`/services/${service.slug}`}
+                      className="group flex h-full cursor-pointer flex-col rounded-card border border-ink-line bg-ink-soft p-7 transition-colors hover:border-acid/50"
+                    >
+                      <span className="eyebrow text-acid">{service.short}</span>
+                      <h3 className="display-sm mt-6 text-paper">
+                        {service.title}
+                      </h3>
+                      <p className="mt-3 flex-1 text-sm leading-relaxed text-ash">
+                        {service.summary}
+                      </p>
+                      <span className="mt-6 font-display text-xl font-bold text-paper">
+                        {service.price}
+                      </span>
+                    </Link>
+                  </Reveal>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <Process />
+
+        <Faq
+          items={FAQS_NATIONAL}
+          eyebrow="Zimbabwe questions"
+          title="Web development in Zimbabwe, answered"
+        />
+
+        <section className="border-t border-ink-line bg-ink px-5 py-16 sm:px-8">
+          <div className="mx-auto max-w-[88rem]">
+            <h2 className="eyebrow text-acid">Web design by city</h2>
+            <ul className="mt-6 flex flex-wrap gap-3">
+              {LOCATIONS.map((l) => (
+                <li key={l.slug}>
+                  <Link
+                    href={`/${l.slug}`}
+                    prefetch={false}
+                    className="inline-flex rounded-pill border border-ink-line px-5 py-2.5 font-display text-sm text-ash transition-colors hover:border-acid hover:text-acid"
+                  >
+                    Web design in {l.city}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <Cta />
       </main>
       <Footer />
     </>

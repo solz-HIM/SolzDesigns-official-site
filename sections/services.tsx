@@ -1,158 +1,75 @@
-"use client";
-
-import Image from "next/image";
 import Link from "next/link";
+import { ArrowPip, ButtonLink } from "@/components/button";
+import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
-import { MagneticButton } from "@/components/magnetic-button";
-import {
-  CardBody,
-  CardContainer,
-  CardItem,
-} from "@/components/ui/3d-card";
-import {
-  GENERAL_INQUIRY_MESSAGE,
-  getWhatsAppUrl,
-} from "@/lib/contact";
-import { SERVICES } from "@/lib/constants";
+import { SERVICES } from "@/lib/site";
 
-function ServiceCard3D({
-  title,
-  price,
-  phrase,
-  image,
-  slug,
-}: {
-  title: string;
-  price: string;
-  phrase: string;
-  image: string | null;
-  slug: string;
-}) {
-  return (
-    <Link
-      href={`/services/${slug}`}
-      className="block h-full w-full rounded-2xl outline-none focus-visible:ring-2 focus-visible:ring-ice focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary"
-      aria-label={`Learn more about ${title}`}
-    >
-      <CardContainer containerClassName="py-2 sm:py-4" className="h-full w-full">
-        <CardBody className="group/card relative mx-auto h-auto w-full min-h-[380px] max-w-none cursor-pointer rounded-2xl border border-white/10 bg-bg-primary p-0 transition-colors duration-300 hover:border-ice/30 [transform-style:preserve-3d] sm:min-h-[420px]">
-          <CardItem translateZ={40} className="w-full">
-            <div className="relative h-40 w-full overflow-hidden rounded-t-2xl sm:h-44">
-              {image ? (
-                <Image
-                  src={image}
-                  alt={title}
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover/card:scale-105"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                />
-              ) : (
-                <div className="h-full w-full bg-gradient-to-br from-ice/10 via-white/5 to-transparent" />
-              )}
-              <div className="absolute inset-0 bg-gradient-to-t from-bg-primary via-bg-primary/60 to-transparent" />
-            </div>
-          </CardItem>
-
-          <div className="flex w-full flex-col p-5 sm:p-6">
-            <CardItem
-              as="h3"
-              translateZ={70}
-              className="w-full font-heading text-lg font-semibold leading-snug text-white sm:text-xl"
-            >
-              {title}
-            </CardItem>
-
-            <CardItem
-              translateZ={90}
-              className="mt-3 w-full font-heading text-2xl font-bold text-white sm:text-3xl"
-            >
-              {price}
-            </CardItem>
-
-            <CardItem
-              translateZ={50}
-              className="mt-3 w-full text-sm leading-relaxed text-white/80"
-            >
-              {phrase}
-            </CardItem>
-
-            <CardItem
-              translateZ={30}
-              className="mt-4 w-full text-xs font-medium tracking-wide text-ice uppercase"
-            >
-              View service →
-            </CardItem>
-          </div>
-
-          <div
-            className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-500 group-hover/card:opacity-100"
-            style={{
-              background:
-                "radial-gradient(circle at 50% 0%, rgba(165,243,252,0.06), transparent 70%)",
-            }}
-            aria-hidden
-          />
-        </CardBody>
-      </CardContainer>
-    </Link>
-  );
-}
-
-export function ServicesSection() {
+/**
+ * Services on the ink panel, in elevated cards.
+ *
+ * Each card is a single link to its service page — the whole card is the
+ * target rather than a "read more" at the bottom, so there is one large,
+ * thumb-friendly hit area instead of a small one.
+ */
+export function Services() {
   return (
     <section
       id="services"
-      className="bg-bg-primary px-4 py-16 sm:px-6 sm:py-24 md:py-32 lg:px-10 lg:py-40"
+      className="bg-ink px-5 py-24 sm:px-8 sm:py-32 lg:py-40"
     >
-      <div className="mx-auto max-w-7xl">
-        <SectionHeading
-          label="Services"
-          title="Digital Solutions Tailored To You"
-          description="Click a card to learn more. Transparent pricing, premium execution."
-          className="mb-4 sm:mb-6"
-        />
+      <div className="mx-auto max-w-[88rem]">
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+          <SectionHeading
+            eyebrow="Services"
+            title={
+              <>
+                What we build{" "}
+                <span className="text-acid">for Zimbabwean business</span>
+              </>
+            }
+            lead="Four things, done properly. Fixed prices quoted before we start — no hourly billing, no scope surprises."
+          />
+          <Reveal delay={120}>
+            <ButtonLink href="/services" variant="ghost">
+              All services
+            </ButtonLink>
+          </Reveal>
+        </div>
 
-        <p className="mb-10 text-center text-sm text-muted sm:mb-16">
-          Looking for{" "}
-          <Link
-            href="/web-design-harare"
-            className="text-ice underline-offset-2 hover:underline"
-          >
-            web design in Harare
-          </Link>{" "}
-          or{" "}
-          <Link
-            href="/web-development-zimbabwe"
-            className="text-ice underline-offset-2 hover:underline"
-          >
-            web development in Zimbabwe
-          </Link>
-          ? We work remotely across Zimbabwe and globally.
-        </p>
+        <ul className="mt-14 grid gap-4 sm:grid-cols-2 lg:mt-20 lg:grid-cols-4">
+          {SERVICES.map((service, i) => (
+            <li key={service.slug}>
+              <Reveal delay={i * 90} className="h-full">
+                <Link
+                  href={`/services/${service.slug}`}
+                  className="group flex h-full cursor-pointer flex-col rounded-card border border-ink-line bg-ink-soft p-7 transition-colors duration-200 hover:border-acid/50 sm:p-8"
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <span className="eyebrow text-acid">{service.short}</span>
+                    <ArrowPip className="border-ink-line text-ash group-hover:border-acid group-hover:bg-acid group-hover:text-ink" />
+                  </div>
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 xl:grid-cols-3">
-          {SERVICES.map((service) => (
-            <ServiceCard3D
-              key={service.title}
-              title={service.title}
-              price={service.price}
-              phrase={service.phrase}
-              image={service.image}
-              slug={service.slug}
-            />
+                  <h3 className="display-sm mt-8 text-paper">
+                    {service.title}
+                  </h3>
+
+                  <p className="mt-4 flex-1 text-sm leading-relaxed text-ash">
+                    {service.summary}
+                  </p>
+
+                  <div className="mt-8 flex items-baseline justify-between gap-3 border-t border-ink-line pt-5">
+                    <span className="font-display text-2xl font-bold text-paper">
+                      {service.price}
+                    </span>
+                    <span className="text-xs text-ash">
+                      {service.turnaround}
+                    </span>
+                  </div>
+                </Link>
+              </Reveal>
+            </li>
           ))}
-        </div>
-
-        <div className="mt-12 text-center sm:mt-16">
-          <MagneticButton
-            href={getWhatsAppUrl(GENERAL_INQUIRY_MESSAGE)}
-            external
-            variant="secondary"
-            className="w-full max-w-xs sm:w-auto"
-          >
-            Discuss Your Project
-          </MagneticButton>
-        </div>
+        </ul>
       </div>
     </section>
   );

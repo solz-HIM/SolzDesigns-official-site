@@ -9,7 +9,7 @@ import {
   webPageNode,
 } from "@/lib/schema";
 
-const SLUG = "web-design-harare";
+const SLUG = "web-design-victoria-falls";
 // Non-null: the slug is a literal that exists in lib/locations.ts, and the
 // build fails loudly here if that ever stops being true.
 const location = LOCATION_BY_SLUG.get(SLUG)!;

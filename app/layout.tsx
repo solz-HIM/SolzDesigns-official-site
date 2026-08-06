@@ -1,100 +1,100 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Archivo, Instrument_Sans } from "next/font/google";
 import "./globals.css";
+import { baseNodes, graph } from "@/lib/schema";
+import { SITE } from "@/lib/site";
 
-const inter = Inter({
-  variable: "--font-inter",
+/**
+ * Two variable families, latin only. Archivo carries the whole display system
+ * — the 800-weight statement and the 300-weight wide-tracked caps come from
+ * one file, which is why the pairing costs less than a single extra family.
+ */
+const archivo = Archivo({
+  variable: "--font-archivo",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  // Weight axis only. The width axis was requested at first and never used —
+  // nothing in the stylesheet sets font-stretch — and carrying it cost ~50KB
+  // on the single largest asset on the page.
+});
+
+const instrument = Instrument_Sans({
+  variable: "--font-instrument",
+  subsets: ["latin"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://solzdesigns.co.zw"),
+  metadataBase: new URL(SITE.url),
   title: {
-    default: "Solz Designs — Premium Web & Brand Design Studio",
+    // Leads with the phrase carrying real measured demand ("web design
+    // Zimbabwe"), not with a studio-speak abstraction.
+    default: "Web Design Zimbabwe | Website Design Agency in Harare — Solz Designs",
     template: "%s | Solz Designs",
   },
   description:
-    "Solz Designs is a creative design studio in Zimbabwe building premium websites, brand identities, and immersive digital experiences.",
-  keywords: ["web design Zimbabwe", "branding Harare", "Solz Designs", "UI UX design", "creative studio Zimbabwe"],
-  authors: [{ name: "Solz Designs" }],
-  creator: "Solz Designs",
+    "Solz Designs is a web design agency in Harare, Zimbabwe. Custom business websites, online stores and SEO from $80. Built fast, built to rank, delivered in 5–10 days.",
+  applicationName: SITE.name,
+  authors: [{ name: SITE.founder, url: `${SITE.url}/about` }],
+  creator: SITE.founder,
+  publisher: SITE.name,
+  category: "Web Design",
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "en_ZW",
-    url: "https://solzdesigns.co.zw",
-    siteName: "Solz Designs",
-    title: "Solz Designs — Premium Web & Brand Design Studio",
-    description: "Premium websites, branding, and immersive digital experiences.",
-    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Solz Designs" }],
+    url: SITE.url,
+    siteName: SITE.name,
+    title: "Web Design Zimbabwe | Website Design Agency in Harare",
+    description:
+      "Custom websites, online stores and SEO for Zimbabwean businesses. From $80, delivered in 5–10 days.",
+    // og:image is injected by the app/opengraph-image.tsx file convention —
+    // setting it here as well would emit the tag twice.
   },
   twitter: {
     card: "summary_large_image",
-    title: "Solz Designs — Premium Web & Brand Design Studio",
-    description: "Premium websites, branding, and immersive digital experiences.",
-    images: ["/og-image.jpg"],
+    title: "Web Design Zimbabwe | Solz Designs",
+    description:
+      "Custom websites, online stores and SEO for Zimbabwean businesses. From $80.",
   },
   robots: {
     index: true,
     follow: true,
-    googleBot: { index: true, follow: true, "max-image-preview": "large" },
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
-  alternates: { canonical: "https://solzdesigns.co.zw" },
   verification: {
     google: "yJNaF4bQ9cogswtp8Gz5Xy2NPG5nRFW8C17dHCSRmYw",
   },
+  formatDetection: { telephone: true, address: true, email: true },
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#090909",
+  themeColor: "#0B0B0B",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${inter.variable} dark`}>
-      <body className="min-h-screen overflow-x-hidden font-sans">
+    <html lang="en-ZW" className={`${archivo.variable} ${instrument.variable}`}>
+      <head>
+        {/* One connected graph for the whole site. Page-level nodes are added
+            per route and reference these by @id. */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "ProfessionalService",
-              name: "Solz Designs",
-              url: "https://solzdesigns.co.zw",
-              logo: "https://solzdesigns.co.zw/logo.png",
-              image: "https://solzdesigns.co.zw/og-image.jpg",
-              description:
-                "Premium web design and development studio in Harare, Zimbabwe. Building websites, brand identities, and digital experiences for businesses across Zimbabwe and globally.",
-              areaServed: ["Harare", "Zimbabwe", "Worldwide"],
-              founder: { "@type": "Person", name: "Mcgyver Chibvongodze" },
-              priceRange: "$80 – $500",
-              telephone: "+263778231792",
-              email: "mcgyver8605@gmail.com",
-              address: {
-                "@type": "PostalAddress",
-                addressLocality: "Harare",
-                addressCountry: "ZW",
-              },
-              geo: {
-                "@type": "GeoCoordinates",
-                latitude: -17.8252,
-                longitude: 31.0335,
-              },
-              sameAs: [
-                "https://www.facebook.com/profile.php?id=61590005594397",
-                "https://www.instagram.com/solz_designs",
-                "https://www.tiktok.com/@solz.designs",
-              ],
-            }),
-          }}
+          dangerouslySetInnerHTML={{ __html: graph(...baseNodes) }}
         />
+      </head>
+      <body className="min-h-dvh overflow-x-hidden bg-ink text-paper">
         {children}
       </body>
     </html>

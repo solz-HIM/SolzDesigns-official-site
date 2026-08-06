@@ -1,38 +1,57 @@
 import type { Metadata } from "next";
-import { GrainOverlay } from "@/animations/grain-overlay";
+import { Footer } from "@/components/footer";
+import { Navigation } from "@/components/navigation";
+import { Cta } from "@/sections/cta";
+import { Faq } from "@/sections/faq";
+import { Hero } from "@/sections/hero";
+import { Process } from "@/sections/process";
+import { Services } from "@/sections/services";
+import { Why } from "@/sections/why";
+import { Work } from "@/sections/work";
+import { breadcrumbNode, faqNode, graph, webPageNode } from "@/lib/schema";
+import { FAQS } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Solz Designs — Premium Web & Brand Design Studio",
+  // Overrides the template so the homepage title is not suffixed twice.
+  title:
+    "Web Design Zimbabwe | Website Design Agency in Harare — Solz Designs",
   description:
-    "Zimbabwe's premium creative studio. We build high-converting websites, bold brand identities, and immersive digital experiences.",
-  alternates: { canonical: "https://solzdesigns.co.zw" },
+    "Solz Designs is a web design agency in Harare, Zimbabwe. Custom business websites, online stores and SEO from $80. Built fast, built to rank, delivered in 5–10 days.",
+  alternates: { canonical: "/" },
 };
-import { LoadingScreen } from "@/components/loading-screen";
-import { Navigation } from "@/components/navigation";
-import { SmoothScrollProvider } from "@/components/smooth-scroll-provider";
-import { Footer } from "@/components/footer";
-import { AboutSection } from "@/sections/about";
-import { CtaSection } from "@/sections/cta";
-import { HeroSection } from "@/sections/hero";
-import { ProcessSection } from "@/sections/process";
-import { ServicesSection } from "@/sections/services";
-import { WhyChooseUsSection } from "@/sections/why-choose-us";
 
-export default function Home() {
+export default function HomePage() {
+  const jsonLd = graph(
+    webPageNode({
+      path: "/",
+      name: "Web Design Zimbabwe | Website Design Agency in Harare",
+      description:
+        "Web design agency in Harare, Zimbabwe. Custom websites, online stores and SEO from $80, delivered in 5–10 days.",
+      crumbs: [{ name: "Home", path: "/" }],
+    }),
+    breadcrumbNode([{ name: "Home", path: "/" }]),
+    faqNode(FAQS, "/"),
+  );
+
   return (
-    <SmoothScrollProvider>
-      <LoadingScreen />
-      <GrainOverlay />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLd }}
+      />
+      {/* The page now opens on the dark artwork hero, so the header keeps
+          its default light colours rather than the ink-on-lime treatment. */}
       <Navigation />
-      <main>
-        <HeroSection />
-        <AboutSection />
-        <ServicesSection />
-        <WhyChooseUsSection />
-        <ProcessSection />
-        <CtaSection />
+      <main id="main">
+        <Hero />
+        <Services />
+        <Work />
+        <Why />
+        <Process />
+        <Faq />
+        <Cta />
       </main>
       <Footer />
-    </SmoothScrollProvider>
+    </>
   );
 }

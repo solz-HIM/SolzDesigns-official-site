@@ -1,44 +1,82 @@
+import { Reveal } from "@/components/reveal";
 import { cn } from "@/lib/utils";
 
-type SectionHeadingProps = {
-  label: string;
-  title: string;
-  description?: string;
-  className?: string;
-  align?: "left" | "center";
-};
-
+/**
+ * Section headings carry a two-part structure: a small eyebrow that names the
+ * section, and the statement itself. The eyebrow is a real label — it tells
+ * you where you are in the page — not decoration.
+ *
+ * `tone` switches the whole block between the ink and lime panels.
+ */
 export function SectionHeading({
-  label,
+  eyebrow,
   title,
-  description,
-  className,
+  lead,
+  tone = "paper",
   align = "left",
-}: SectionHeadingProps) {
+  as: Tag = "h2",
+  className,
+}: {
+  eyebrow: string;
+  title: React.ReactNode;
+  lead?: string;
+  tone?: "paper" | "ink";
+  align?: "left" | "center";
+  as?: "h1" | "h2";
+  className?: string;
+}) {
+  const onInk = tone === "ink";
+
   return (
     <div
       className={cn(
-        "mb-12 max-w-2xl sm:mb-16",
+        "max-w-3xl",
         align === "center" && "mx-auto text-center",
         className,
       )}
     >
-      <p
-        className={cn(
-          "mb-3 font-mono text-[10px] tracking-[0.25em] text-ice uppercase sm:mb-4 sm:text-xs sm:tracking-[0.3em]",
-          align === "center" && "mx-auto",
-        )}
-      >
-        {label}
-      </p>
-      <h2 className="font-heading text-[clamp(1.75rem,5vw,3.5rem)] leading-[1.1] font-semibold tracking-tight text-white">
-        {title}
-      </h2>
-      {description && (
-        <p className="mt-4 text-base leading-relaxed text-muted sm:mt-6 sm:text-lg">
-          {description}
+      <Reveal>
+        <p
+          className={cn(
+            "eyebrow flex items-center gap-2.5",
+            align === "center" && "justify-center",
+            onInk ? "text-olive" : "text-acid",
+          )}
+        >
+          <span
+            aria-hidden="true"
+            className={cn(
+              "inline-block h-1.5 w-1.5 rounded-full",
+              onInk ? "bg-ink" : "bg-acid",
+            )}
+          />
+          {eyebrow}
         </p>
-      )}
+      </Reveal>
+
+      <Reveal delay={80}>
+        <Tag
+          className={cn(
+            "display-lg mt-4",
+            onInk ? "text-ink" : "text-paper",
+          )}
+        >
+          {title}
+        </Tag>
+      </Reveal>
+
+      {lead ? (
+        <Reveal delay={160}>
+          <p
+            className={cn(
+              "mt-5 text-base leading-relaxed sm:text-lg",
+              onInk ? "text-olive" : "text-ash",
+            )}
+          >
+            {lead}
+          </p>
+        </Reveal>
+      ) : null}
     </div>
   );
 }

@@ -1,65 +1,102 @@
-"use client";
+import { ButtonLink } from "@/components/button";
+import { Reveal } from "@/components/reveal";
+import { getEmailUrl, getWhatsAppUrl, QUOTE_MESSAGE } from "@/lib/contact";
+import { SITE } from "@/lib/site";
 
-import { SectionReveal } from "@/animations/section-reveal";
-import { TextReveal } from "@/animations/text-reveal";
-import { MagneticButton } from "@/components/magnetic-button";
-import {
-  GENERAL_INQUIRY_MESSAGE,
-  getEmailUrl,
-  getWhatsAppUrl,
-} from "@/lib/contact";
-
-export function CtaSection() {
+/**
+ * The closing lime panel — the hero's bookend. Same surface, same type
+ * treatment, so the page resolves where it started.
+ */
+export function Cta() {
   return (
     <section
       id="contact"
-      className="relative overflow-hidden bg-bg-primary px-4 py-16 sm:px-6 sm:py-24 md:py-32 lg:px-10 lg:py-40"
+      className="on-acid relative overflow-hidden bg-acid px-5 py-24 sm:px-8 sm:py-32 lg:py-40"
     >
-      <div
-        className="pointer-events-none absolute inset-0 flex items-center justify-center"
-        aria-hidden
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-[4%] -bottom-16 font-display text-[34vw] leading-none font-extrabold text-ink/[0.05] select-none"
       >
-        <div className="h-[300px] w-[min(100%,600px)] rounded-full bg-ice/[0.04] blur-[100px] sm:h-[400px]" />
-      </div>
+        SD
+      </span>
 
-      <div className="relative mx-auto max-w-4xl text-center lg:px-10">
-        <SectionReveal>
-          <TextReveal
-            text="Ready To Make Your Brand Unforgettable?"
-            as="h2"
-            className="font-heading justify-center text-[clamp(1.75rem,5vw,3.75rem)] leading-tight font-semibold text-white"
-          />
-        </SectionReveal>
-
-        <SectionReveal delay={0.2}>
-          <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-subtle sm:mt-8 sm:text-lg">
-            Let&apos;s bring your vision to life. Reach out today and take the
-            first step toward a digital presence that sets you apart.
-          </p>
-        </SectionReveal>
-
-        <SectionReveal delay={0.35}>
-          <div className="mx-auto mt-10 flex w-full max-w-md flex-col gap-4 sm:mt-12 sm:max-w-lg sm:flex-row sm:justify-center">
-            <MagneticButton
-              href={getWhatsAppUrl(GENERAL_INQUIRY_MESSAGE)}
-              external
-              variant="white"
-              className="w-full sm:flex-1 sm:max-w-[220px]"
-            >
-              Start Your Project
-            </MagneticButton>
-            <MagneticButton
-              href={getEmailUrl(
-                "Project enquiry — Solz Designs",
-                "Hi Solz Designs,\n\nI'd like to discuss a project.\n\n",
-              )}
-              variant="secondary"
-              className="w-full sm:flex-1 sm:max-w-[220px]"
-            >
-              Email Us
-            </MagneticButton>
+      <div className="relative mx-auto max-w-[88rem]">
+        <div className="grid gap-12 lg:grid-cols-12 lg:items-end lg:gap-16">
+          <div className="lg:col-span-7">
+            <Reveal>
+              <p className="eyebrow flex items-center gap-2.5 text-olive">
+                <span
+                  aria-hidden="true"
+                  className="inline-block h-1.5 w-1.5 rounded-full bg-ink"
+                />
+                Let&apos;s talk
+              </p>
+            </Reveal>
+            <Reveal delay={80}>
+              <h2 className="display-xl mt-4 text-ink">
+                Start your
+                <br />
+                project
+              </h2>
+            </Reveal>
+            <Reveal delay={160}>
+              <p className="mt-6 max-w-lg text-base leading-relaxed text-olive sm:text-lg">
+                Tell us what your business does and what you need the site to
+                achieve. You&apos;ll get a fixed price and a delivery date back
+                — usually the same day, always within 24 hours.
+              </p>
+            </Reveal>
           </div>
-        </SectionReveal>
+
+          <div className="lg:col-span-5">
+            <Reveal delay={220}>
+              <div className="flex flex-col gap-3">
+                <ButtonLink
+                  href={getWhatsAppUrl(QUOTE_MESSAGE)}
+                  external
+                  variant="ink"
+                  className="w-full"
+                >
+                  Message us on WhatsApp
+                </ButtonLink>
+                <ButtonLink href="/contact" variant="ghostInk" className="w-full">
+                  Use the enquiry form
+                </ButtonLink>
+              </div>
+
+              <dl className="mt-8 space-y-4 border-t border-ink/15 pt-6">
+                <div className="flex items-baseline justify-between gap-4">
+                  <dt className="eyebrow text-olive/80">Call</dt>
+                  <dd>
+                    <a
+                      href={`tel:${SITE.phone}`}
+                      className="font-display font-semibold text-ink underline-offset-4 hover:underline"
+                    >
+                      {SITE.phoneDisplay}
+                    </a>
+                  </dd>
+                </div>
+                <div className="flex items-baseline justify-between gap-4">
+                  <dt className="eyebrow text-olive/80">Email</dt>
+                  <dd>
+                    <a
+                      href={getEmailUrl("Project enquiry — Solz Designs")}
+                      className="font-display font-semibold break-all text-ink underline-offset-4 hover:underline"
+                    >
+                      {SITE.email}
+                    </a>
+                  </dd>
+                </div>
+                <div className="flex items-baseline justify-between gap-4">
+                  <dt className="eyebrow text-olive/80">Based in</dt>
+                  <dd className="font-display font-semibold text-ink">
+                    {SITE.city}, {SITE.country}
+                  </dd>
+                </div>
+              </dl>
+            </Reveal>
+          </div>
+        </div>
       </div>
     </section>
   );
