@@ -29,11 +29,11 @@ export const metadata: Metadata = {
   title: {
     // Leads with the phrase carrying real measured demand ("web design
     // Zimbabwe"), not with a studio-speak abstraction.
-    default: "Web Design Zimbabwe | Website Design Agency in Harare — Solz Designs",
+    default: "Web Design Zimbabwe — Websites From $80 | Solz Designs",
     template: "%s | Solz Designs",
   },
   description:
-    "Solz Designs is a web design agency in Harare, Zimbabwe. Custom business websites, online stores and SEO from $80. Built fast, built to rank, delivered in 5–10 days.",
+    "Web design agency in Harare, Zimbabwe. Custom business websites, online stores and SEO from $80, live in 5–10 days. Fixed prices — see them before you ask.",
   applicationName: SITE.name,
   authors: [{ name: SITE.founder, url: `${SITE.url}/about` }],
   creator: SITE.founder,

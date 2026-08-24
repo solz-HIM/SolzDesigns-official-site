@@ -11,9 +11,9 @@ import { getWhatsAppUrl } from "@/lib/contact";
 import { breadcrumbNode, faqNode, graph, webPageNode } from "@/lib/schema";
 import { SITE } from "@/lib/site";
 
-const TITLE = "Website Design Pricing in Zimbabwe — What a Website Costs";
+const TITLE = "Website Prices in Zimbabwe (2026)";
 const DESCRIPTION =
-  "What a website actually costs in Zimbabwe: $80 for a one-page site, $500 for a full business website, from $500 for e-commerce. Fixed prices, no hidden fees, no monthly lock-in.";
+  "What a website costs in Zimbabwe: $80–$100 for a portfolio, $500 for a business site, $500 for e-commerce. Fixed prices, no hidden fees, no monthly lock-in.";
 
 export const metadata: Metadata = {
   title: TITLE,

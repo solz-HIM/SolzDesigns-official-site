@@ -34,9 +34,9 @@ import { SERVICES } from "@/lib/site";
  * from — and the kind of question AI assistants answer by quoting a source.
  */
 
-const TITLE = "Web Development Zimbabwe — Custom Websites Built for Zimbabwean Business";
+const TITLE = "Web Development Zimbabwe — Custom Builds";
 const DESCRIPTION =
-  "Web development in Zimbabwe done properly: custom Next.js builds, not templates. What it costs, how long it takes, and what to look for in a developer. From $80.";
+  "Custom web development in Zimbabwe — hand-coded, not templates. What it costs, how long it takes, and the four questions to ask any developer first.";
 
 export const metadata: Metadata = {
   title: TITLE,

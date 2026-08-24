@@ -155,6 +155,29 @@ export default function WorkPage() {
           </div>
         </section>
 
+        {/* Relevant rather than decorative internal linking: these clients are
+            Harare businesses, so the city pages are a natural next step. */}
+        <section className="border-t border-ink-line bg-ink px-5 pt-16 sm:px-8">
+          <div className="mx-auto max-w-[88rem]">
+            <p className="max-w-3xl text-sm leading-relaxed text-ash sm:text-base">
+              These projects were built for businesses in and around Harare, but
+              we work remotely across the country. See how we approach{" "}
+              <Link href="/web-design-harare" className="text-acid underline underline-offset-4 decoration-acid/40 hover:decoration-acid">
+                web design in Harare
+              </Link>
+              ,{" "}
+              <Link href="/web-design-bulawayo" className="text-acid underline underline-offset-4 decoration-acid/40 hover:decoration-acid">
+                web design in Bulawayo
+              </Link>{" "}
+              and{" "}
+              <Link href="/web-design-victoria-falls" className="text-acid underline underline-offset-4 decoration-acid/40 hover:decoration-acid">
+                web design in Victoria Falls
+              </Link>
+              .
+            </p>
+          </div>
+        </section>
+
         {/* Most of the day-to-day work lands on social before it lands here. */}
         <SocialStrip />
 

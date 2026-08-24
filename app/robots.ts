@@ -55,8 +55,13 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        // Next's own build artefacts carry no meaning for a crawler.
-        disallow: ["/_next/static/chunks/", "/api/"],
+        // Nothing is disallowed. An earlier version blocked
+        // /_next/static/chunks/ on the reasoning that build artefacts carry no
+        // meaning for a crawler — that was wrong and actively harmful. Google
+        // renders a page before judging it, and to render it must fetch the
+        // JavaScript and CSS. Blocking those chunks made every page on the
+        // site report "disallowed internal resources" in third-party audits
+        // and degraded the rendering signals Google scores the page on.
       },
       { userAgent: AI_AGENTS, allow: "/" },
     ],

@@ -43,9 +43,9 @@ export const LOCATIONS: Location[] = [
     slug: "web-design-harare",
     city: "Harare",
     linkLabel: "Web design Harare",
-    title: "Web Design Harare — Website Designers in Harare, Zimbabwe",
+    title: "Web Design Harare — Websites From $80",
     metaDescription:
-      "Web design in Harare from $80. Custom business websites, online stores and SEO, built by a Harare-based agency and delivered in 5–10 days. Get a fixed quote today.",
+      "Web design in Harare from $80. Custom business sites, online stores and SEO from a Harare-based studio, live in 5–10 days. Fixed prices, quoted up front.",
     heading: "Web design in Harare",
     intro:
       "Solz Designs is based in Harare and builds websites for businesses across the city — from Borrowdale and Avondale offices to Msasa and Graniteside operations. Being in the same city means we can meet in person when a project needs it, though most of our Harare clients still prefer to run everything over WhatsApp because it is faster.",
@@ -98,7 +98,7 @@ export const LOCATIONS: Location[] = [
     slug: "web-design-bulawayo",
     city: "Bulawayo",
     linkLabel: "Web design Bulawayo",
-    title: "Web Design Bulawayo — Affordable Website Designers in Bulawayo",
+    title: "Web Design Bulawayo — Websites From $80",
     metaDescription:
       "Affordable web design in Bulawayo from $80. Custom websites for Bulawayo manufacturers, retailers and service businesses, delivered remotely in 5–10 days.",
     heading: "Web design in Bulawayo",
@@ -153,9 +153,9 @@ export const LOCATIONS: Location[] = [
     slug: "web-design-victoria-falls",
     city: "Victoria Falls",
     linkLabel: "Web design Victoria Falls",
-    title: "Web Design Victoria Falls — Websites for Tourism Businesses",
+    title: "Web Design Victoria Falls — Tourism Sites",
     metaDescription:
-      "Web design and development in Victoria Falls for lodges, tour operators and activity providers. Fast, bookable websites built for international visitors. From $80.",
+      "Web design in Victoria Falls for lodges, tour operators and activity providers. Fast sites that win direct bookings instead of paying platform commission.",
     heading: "Web design in Victoria Falls",
     intro:
       "Victoria Falls runs on a different economy to the rest of Zimbabwe, and its websites have a different job. Your customer is usually not in the country — they are planning a trip from Johannesburg, London or Sydney, comparing lodges and operators across several tabs, and they will never phone you to ask a question they could not find the answer to. The site has to close that gap on its own.",

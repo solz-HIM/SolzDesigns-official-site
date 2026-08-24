@@ -244,7 +244,13 @@ export type Project = {
   summary: string;
   /** What the build had to solve. */
   brief: string;
+  /** How it was built, and why those decisions were made. */
+  approach: string;
+  /** What the finished site does for the client. No invented metrics. */
+  outcome: string;
   scope: string[];
+  /** The stack, for the reader who wants to know. */
+  stack: string[];
   image: string;
   imageAlt: string;
   liveUrl?: string;
@@ -262,6 +268,8 @@ export const PROJECTS: Project[] = [
       "The home of 5-a-side football at Madokero Mall — a full league site with standings, fixtures, teams and player profiles, plus pitch hire at $20 an hour.",
     brief:
       "Madfutsal runs the Emagumeni Futsal League out of Madokero Mall and hires its caged pitches out by the hour, and both sides of that were living in WhatsApp groups. League standings were screenshots that went stale the moment a match finished, and every booking meant a conversation. The site had to serve two audiences at once without feeling like two websites: players and supporters who come for the table, the fixtures and their own stats, and anyone who just wants a pitch on Saturday and needs the price and the location inside five seconds.",
+    approach: "The site is organised around the two jobs rather than around a menu. Anything to do with hiring a pitch — the $20 hourly rate, the Madokero Mall location on Kirkman Road, and the booking action — is reachable from the first screen without scrolling, because that visitor is usually deciding in under a minute and often already standing outside. Everything to do with the league sits behind its own clear set of sections: Table, Teams, Players, News and Grounds, so a supporter checking where their club sits after a Saturday fixture goes straight there and never wades through booking copy.\n\nThe visual direction follows the football rather than the fashion. Matches at Madokero are played under floodlights on caged artificial turf, so the interface is built dark, with a club red and a pitch-marking blue carrying the accents against near-black. That reads correctly on a phone at the ground at night, which is where a large share of the traffic actually happens — someone checking the table between games, on patchy signal, on a screen at half brightness.",
+    outcome: "The league now has a single public record that stays current, instead of standings circulating as screenshots that go stale the moment a fixture ends. Pitch hire has a permanent, searchable home rather than living inside a WhatsApp thread. And because every team and player has its own page, the site gives the clubs something of their own to share — which brings their supporters back to Madfutsal rather than to a group chat.",
     scope: [
       "League table, fixtures and results",
       "Team and player profiles with stats",
@@ -269,6 +277,7 @@ export const PROJECTS: Project[] = [
       "News section for match reports",
       "Floodlit-pitch look — dark UI built for evening football",
     ],
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "Structured data"],
     image: "/work/madfutsal-league.webp",
     imageAlt:
       "Madfutsal homepage showing the High Intensity, Zero Limits headline over a football illustration, with pitch booking and league table calls to action",
@@ -284,12 +293,15 @@ export const PROJECTS: Project[] = [
       "An online store for a Zimbabwean eyewear brand, with a separate accessories range and a checkout built for local payment methods.",
     brief:
       "Mel was selling sunglasses through Instagram DMs — every order meant a back-and-forth conversation about stock, price and payment. The store had to carry two distinct ranges without feeling like two websites, and it had to let a customer complete a purchase without ever needing to message anyone.",
+    approach: "The two ranges were the central design problem. Sunnies and Tiny Treasures have different buyers and different price points, but putting them behind separate storefronts would have split a small brand in half. They are handled instead as distinct top-level sections sharing one identity, one cart and one checkout — so a customer who arrives for sunglasses finds the accessories without being redirected anywhere, and Mel maintains a single catalogue rather than two.\n\nThe product photography leads. Eyewear is bought on how it looks, so the layout gives images the full width of the screen rather than cropping them into a grid of thumbnails, and the typography stays quiet so it never competes with the product. Almost all of the traffic arrives from an Instagram link on a phone, so the mobile layout is the primary design rather than a scaled-down desktop one, and the store is built to load fast enough that someone arriving from a story does not leave before the first image resolves.",
+    outcome: "Orders no longer require a conversation. A customer can browse both ranges, see what is available, and complete a purchase without messaging anyone — removing the back-and-forth that used to sit between interest and payment. Mel updates the catalogue herself as new stock lands. The store also gives the brand a fixed address that belongs to her: an Instagram account can be restricted or lost overnight, and the entire business had been built inside one.",
     scope: [
       "Product catalogue across two ranges",
       "Cart and checkout flow",
       "Full-bleed lifestyle photography treatment",
       "Mobile-first — most traffic arrives from Instagram",
     ],
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "Product schema"],
     image: "/work/sunnies-by-mel-store.webp",
     imageAlt:
       "Sunnies by Mel online store homepage, showing the Shade The Ordinary hero and Shop Collection call to action",
@@ -305,12 +317,15 @@ export const PROJECTS: Project[] = [
       "A developer portfolio for a Harare-based cloud engineer, built to be read by recruiters in under a minute.",
     brief:
       "Effort needed a site that made his stack and availability legible immediately — a recruiter skims a portfolio for seconds before deciding. The whole first screen had to answer who he is, what he works in, and whether he is open to work, without a scroll.",
+    approach: "A recruiter gives a portfolio seconds, so the whole first screen answers three questions before any scrolling happens: who he is, what he works in, and whether he is available. His name is set in large gradient type as the anchor, with a live status card reading Open to work beside a portrait, and a stack card listing Python, JavaScript, PHP, Vue.js, Laravel and AWS. A row of credentials — years of experience, projects shipped, ICDL certification, University of Zimbabwe, Harare — sits directly beneath, so the qualifying facts are visible without a click.\n\nBelow that the structure stays deliberately short: About, Skills, Projects and Contact, with the résumé download treated as the primary action rather than buried in a footer. The interface is dark with a green terminal accent — a deliberate nod to the tooling his audience works in, and a signal of the kind of engineering he does before a single project has been read.",
+    outcome: "Effort has one link that does the work of a CV, a covering note and an availability status at the same time, and it holds up when a recruiter opens it on a phone. Because it sits on his own domain rather than a profile on someone else's platform, he controls what it says, and it stays online whether or not he is actively looking.",
     scope: [
       "Single-screen credential summary",
       "Projects and skills sections",
       "Résumé download as the primary conversion",
       "Dark interface with a typographic identity",
     ],
+    stack: ["Next.js", "TypeScript", "Tailwind CSS"],
     image: "/work/effort-wafawarova-portfolio.webp",
     imageAlt:
       "Effort Wafawarova developer portfolio homepage, showing his name in large gradient type and an open-to-work status card",

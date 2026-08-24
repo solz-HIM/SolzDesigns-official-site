@@ -7,16 +7,20 @@ import { Hero } from "@/sections/hero";
 import { Process } from "@/sections/process";
 import { Services } from "@/sections/services";
 import { Why } from "@/sections/why";
+import { Areas } from "@/sections/areas";
 import { Work } from "@/sections/work";
 import { breadcrumbNode, faqNode, graph, webPageNode } from "@/lib/schema";
 import { FAQS } from "@/lib/site";
 
 export const metadata: Metadata = {
   // Overrides the template so the homepage title is not suffixed twice.
-  title:
-    "Web Design Zimbabwe | Website Design Agency in Harare — Solz Designs",
+  // Absolute: the brand is already in the string, so the template suffix
+  // would duplicate it.
+  title: {
+    absolute: "Web Design Zimbabwe — Websites From $80 | Solz Designs",
+  },
   description:
-    "Solz Designs is a web design agency in Harare, Zimbabwe. Custom business websites, online stores and SEO from $80. Built fast, built to rank, delivered in 5–10 days.",
+    "Web design agency in Harare, Zimbabwe. Custom business websites, online stores and SEO from $80, live in 5–10 days. Fixed prices — see them before you ask.",
   alternates: { canonical: "/" },
 };
 
@@ -46,6 +50,7 @@ export default function HomePage() {
         <Hero />
         <Services />
         <Work />
+        <Areas />
         <Why />
         <Process />
         <Faq />

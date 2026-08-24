@@ -10,12 +10,12 @@ import { Why } from "@/sections/why";
 import { breadcrumbNode, graph, webPageNode } from "@/lib/schema";
 import { SERVICE_AREAS, SITE } from "@/lib/site";
 
-const TITLE = "About Solz Designs — Web Design Agency in Harare, Zimbabwe";
+const TITLE = "About Solz Designs — Web Design in Harare";
 const DESCRIPTION =
-  "Solz Designs is a founder-led web design agency in Harare, Zimbabwe, building fast, findable websites for businesses nationwide. Meet the studio and how it works.";
+  "Founder-led web design studio in Harare, Zimbabwe. You work directly with the person who designs and builds your site — no account managers, no queue.";
 
 export const metadata: Metadata = {
-  title: TITLE,
+  title: { absolute: TITLE },
   description: DESCRIPTION,
   alternates: { canonical: "/about" },
   openGraph: { title: TITLE, description: DESCRIPTION, url: "/about" },

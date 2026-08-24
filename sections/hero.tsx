@@ -50,13 +50,17 @@ export function Hero() {
 
       <div className="relative mx-auto w-full max-w-[88rem] px-5 sm:px-8">
         <div className="max-w-4xl">
+          {/* The spaces between these spans are load-bearing. Without them the
+              H1's text content reads "CreativeWeb DesignZimbabwe" — which
+              mangles the exact phrase this page targets. The spans are block
+              level, so the whitespace collapses and nothing moves visually. */}
           <h1 className="hero-in">
             <span className="display-thin hero-glow-accent block text-acid">
               Creative
-            </span>
+            </span>{" "}
             <span className="display-hero hero-glow mt-1 block text-paper sm:mt-2">
               Web Design
-            </span>
+            </span>{" "}
             <span className="display-thin hero-glow mt-2 block text-paper/80 sm:mt-3">
               Zimbabwe
             </span>

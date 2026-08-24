@@ -30,7 +30,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const title = `${project.client} — ${project.type}`;
   return {
     title,
-    description: project.summary,
+    // summary alone runs short on some projects; the sector keeps every
+    // description inside the 140-160 range Google renders in full.
+    description: `${project.summary} ${project.sector}, ${project.year}.`,
     alternates: { canonical: `/work/${slug}` },
     openGraph: {
       title,
@@ -138,6 +140,31 @@ export default async function CaseStudyPage({ params }: Props) {
                     {project.brief}
                   </p>
                 </Reveal>
+
+                <div className="mt-14">
+                  <SectionHeading eyebrow="The approach" title="How we built it" />
+                  <Reveal delay={100}>
+                    <div className="mt-8 space-y-5">
+                      {project.approach.split("\n\n").map((para) => (
+                        <p
+                          key={para.slice(0, 40)}
+                          className="text-base leading-relaxed text-ash sm:text-lg"
+                        >
+                          {para}
+                        </p>
+                      ))}
+                    </div>
+                  </Reveal>
+                </div>
+
+                <div className="mt-14">
+                  <SectionHeading eyebrow="The outcome" title="What it does now" />
+                  <Reveal delay={100}>
+                    <p className="mt-8 text-base leading-relaxed text-ash sm:text-lg">
+                      {project.outcome}
+                    </p>
+                  </Reveal>
+                </div>
               </div>
 
               <div className="lg:col-span-5">
@@ -158,6 +185,20 @@ export default async function CaseStudyPage({ params }: Props) {
                         </li>
                       ))}
                     </ul>
+
+                    <div className="mt-8 border-t border-ink-line pt-6">
+                      <h2 className="eyebrow text-acid">Built with</h2>
+                      <ul className="mt-4 flex flex-wrap gap-2">
+                        {project.stack.map((tech) => (
+                          <li
+                            key={tech}
+                            className="rounded-pill border border-ink-line px-3 py-1.5 font-display text-xs tracking-[0.08em] text-ash uppercase"
+                          >
+                            {tech}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
 
                     <dl className="mt-8 space-y-3 border-t border-ink-line pt-6">
                       <div className="flex justify-between gap-4">

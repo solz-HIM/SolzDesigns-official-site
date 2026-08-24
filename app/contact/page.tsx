@@ -9,12 +9,12 @@ import { getEmailUrl, getWhatsAppUrl, CONTACT_MESSAGE } from "@/lib/contact";
 import { breadcrumbNode, graph, webPageNode } from "@/lib/schema";
 import { SITE } from "@/lib/site";
 
-const TITLE = "Contact Solz Designs — Web Design in Harare, Zimbabwe";
+const TITLE = "Contact Solz Designs — Web Design Harare";
 const DESCRIPTION =
   "Get a fixed quote for your website. Message Solz Designs on WhatsApp, call +263 77 823 1792, or send an enquiry. Based in Harare, working across Zimbabwe.";
 
 export const metadata: Metadata = {
-  title: TITLE,
+  title: { absolute: TITLE },
   description: DESCRIPTION,
   alternates: { canonical: "/contact" },
   openGraph: { title: TITLE, description: DESCRIPTION, url: "/contact" },
