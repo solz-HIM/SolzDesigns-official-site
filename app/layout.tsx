@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Archivo, Instrument_Sans } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@/components/analytics";
 import { baseNodes, graph } from "@/lib/schema";
 import { SITE } from "@/lib/site";
 
@@ -96,6 +97,9 @@ export default function RootLayout({
       </head>
       <body className="min-h-dvh overflow-x-hidden bg-ink text-paper">
         {children}
+        {/* Rendered from the root layout so the tag is on every page exactly
+            once, and never twice. */}
+        <Analytics />
       </body>
     </html>
   );
