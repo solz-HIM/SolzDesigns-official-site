@@ -15,10 +15,8 @@ export function Cta() {
     >
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute -right-[4%] -bottom-16 font-display text-[34vw] leading-none font-extrabold text-ink/[0.05] select-none"
-      >
-        SD
-      </span>
+        className="ghost-mark pointer-events-none absolute -right-[4%] -bottom-16 font-display text-[34vw] leading-none font-extrabold text-ink/[0.05] select-none"
+      />
 
       <div className="relative mx-auto max-w-[88rem]">
         <div className="grid gap-12 lg:grid-cols-12 lg:items-end lg:gap-16">

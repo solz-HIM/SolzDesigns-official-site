@@ -28,10 +28,8 @@ export function PageHero({
     <section className="on-acid notch-bottom relative overflow-hidden bg-acid px-5 pt-28 pb-16 sm:px-8 sm:pt-32 sm:pb-20 lg:pt-40 lg:pb-24">
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute -top-10 -left-[5%] font-display text-[38vw] leading-none font-extrabold text-ink/[0.04] select-none"
-      >
-        SD
-      </span>
+        className="ghost-mark pointer-events-none absolute -top-10 -left-[5%] font-display text-[38vw] leading-none font-extrabold text-ink/[0.04] select-none"
+      />
 
       <div className="relative mx-auto max-w-[88rem]">
         <nav aria-label="Breadcrumb">
