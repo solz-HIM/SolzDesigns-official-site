@@ -30,9 +30,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const title = `${project.client} — ${project.type}`;
   return {
     title,
-    // summary alone runs short on some projects; the sector keeps every
-    // description inside the 140-160 range Google renders in full.
-    description: `${project.summary} ${project.sector}, ${project.year}.`,
+    // Google renders roughly 155 characters. Pad a short summary with the
+    // sector and year, but never past the limit — appending unconditionally
+    // pushed two of these to 171 and 185 characters, where the tail is cut.
+    description: buildDescription(project.summary, project.sector, project.year),
     alternates: { canonical: `/work/${slug}` },
     openGraph: {
       title,
@@ -42,6 +43,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: [{ url: project.image, alt: project.imageAlt }],
     },
   };
+}
+
+/**
+ * Keeps every case-study description inside the ~155 characters Google will
+ * actually render, padding only when the summary alone is too short to fill
+ * the snippet.
+ */
+function buildDescription(summary: string, sector: string, year: string): string {
+  const padded = `${summary} ${sector}, ${year}.`;
+  if (padded.length <= 158) return padded;
+  return summary.length <= 158 ? summary : `${summary.slice(0, 155).trimEnd()}…`;
 }
 
 export default async function CaseStudyPage({ params }: Props) {
