@@ -26,7 +26,7 @@ export function Work() {
             eyebrow="Selected work"
             tone="ink"
             title="Recent builds"
-            lead="Three live sites, all shipped in 2026. Real clients, real briefs — every one of them is online right now, so go and click around."
+            lead="Four live sites, all shipped in 2026. Real clients, real briefs — every one of them is online right now, so go and click around."
           />
           <Reveal delay={120}>
             <ButtonLink href="/work" variant="ink">

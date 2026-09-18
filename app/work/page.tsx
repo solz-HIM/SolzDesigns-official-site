@@ -14,7 +14,7 @@ import { formatDomain } from "@/lib/utils";
 
 const TITLE = "Our Work — Websites Built in Zimbabwe";
 const DESCRIPTION =
-  "Live websites designed and built by Solz Designs for Zimbabwean businesses — a 5-a-side football league, an online eyewear store and a developer portfolio.";
+  "Live websites designed and built by Solz Designs for Zimbabwean businesses — a construction company, a 5-a-side football league and an online eyewear store.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -160,7 +160,7 @@ export default function WorkPage() {
         <section className="border-t border-ink-line bg-ink px-5 pt-16 sm:px-8">
           <div className="mx-auto max-w-[88rem]">
             <p className="max-w-3xl text-sm leading-relaxed text-ash sm:text-base">
-              These projects were built for businesses in and around Harare, but
+              Most of these were built for businesses in and around Harare, but
               we work remotely across the country. See how we approach{" "}
               <Link href="/web-design-harare" className="text-acid underline underline-offset-4 decoration-acid/40 hover:decoration-acid">
                 web design in Harare

@@ -69,7 +69,7 @@ const CHECKLIST = [
   },
   {
     title: "Ask how you will be found",
-    body: "A site is not marketing on its own. Ask specifically whether Search Console will be set up, whether a sitemap will be submitted, and whether the pages target anything people actually search. If those questions get a vague answer, the site will be invisible no matter how it looks.",
+    body: "A website does not bring in customers just by existing. Ask specifically whether Search Console will be set up, whether a sitemap will be submitted, and whether the pages target anything people actually search for. If those questions get a vague answer, the site will be invisible no matter how good it looks.",
   },
 ];
 

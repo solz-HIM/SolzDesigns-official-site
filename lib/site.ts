@@ -258,6 +258,35 @@ export type Project = {
 
 export const PROJECTS: Project[] = [
   {
+    client: "QDCreative",
+    slug: "qdcreative",
+    type: "Construction company site",
+    year: "2026",
+    sector: "Construction — turnkey building & landscaping",
+    liveUrl: "https://qdcreative.com",
+    summary:
+      "A turnkey construction company in Harare — design, build, interiors, swimming pools and landscaping under one contract. Built to win quote enquiries from homeowners who have been let down before.",
+    brief: "QDCreative (formerly Quotella Designs, established 2017) delivers whole projects under a single contract rather than leaving a client to coordinate a builder, a landscaper and a pool contractor separately. That is their real advantage, and it was invisible online. The site had to do two jobs at once: convince a homeowner spending serious money that this team will actually finish what they start, and make requesting a quote take one tap. Construction is a category people approach with scar tissue — most have heard a story about a contractor who took a deposit and disappeared — so the brief was less about looking impressive than about answering that fear directly.",
+    approach: "The homepage leads with finished work at full bleed, because in construction the photograph is the argument. Everything above the fold answers who, where and what: Harare, established 2017, and the four things they build — construction, landscaping, swimming pools and renovations — with a WhatsApp quote button sitting alongside a route into the project gallery.\n\nThe structure is built around the objection rather than around the services. A dedicated section names what actually stops people committing — cost uncertainty, projects running over, having to chase several contractors — and answers each one. The process is laid out as four steps with no surprises, the FAQs answer the questions people are too polite to ask on a first call, and an Insights section gives them somewhere to publish the kind of practical advice that earns trust before anyone makes contact. Everything routes back to one action: tell us about the space.",
+    outcome: "QDCreative now has a site that does the qualifying conversation before the phone rings. A homeowner can see completed work, understand exactly how a project runs, get the awkward questions answered, and send an enquiry without waiting for office hours. Because the whole build is indexable, the turnkey positioning is now something they can be found for rather than something they have to explain on every first call.",
+    scope: [
+      "Full multi-page site — about, services, projects, process, insights",
+      "Project gallery built around finished work",
+      "Objection-handling and FAQ sections",
+      "WhatsApp quote flow and enquiry form",
+      "Technical SEO and structured data configured at launch",
+    ],
+    stack: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Structured data",
+    ],
+    image: "/work/qdcreative-construction.webp",
+    imageAlt:
+      "QDCreative homepage showing the Build Your Dream headline over a finished Harare home with a pool, outdoor kitchen and landscaped garden",
+  },
+  {
     client: "Madfutsal",
     slug: "madfutsal",
     type: "League & booking site",
